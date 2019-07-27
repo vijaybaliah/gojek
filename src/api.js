@@ -16,7 +16,7 @@ export const fetch = (url, method = 'get', payload = {}) => {
                 api_key: API_KEY
             },
             validateStatus: (status) => {
-                return status >= 200 && status < 500; // default
+                return status >= 200 && status < 400; // default
             },
             responseType: 'json',
             url

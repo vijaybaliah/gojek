@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import SearchForm from '../../components/forms/SearchForm'
-import { Link } from '../../components/uikit'
 import { fetchSearch } from '../../actions/home'
 
 class Main extends PureComponent {

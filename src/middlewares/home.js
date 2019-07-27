@@ -27,10 +27,10 @@ export const home = store => next => action => {
                 .then((res) => {
                     store.dispatch({ type: type + '_SUCCESS', payload: { queryString, ...res.data }})
                 }, error => {
-                    store.dispatch({ type: type + '_ERROR', payload: { error } })
+                    store.dispatch({ type: type + '_ERROR', payload: { queryString, error: error.toString() } })
                 })
                 .catch((error) => {
-                    store.dispatch({ type: type + '_ERROR', payload: { error } })
+                    store.dispatch({ type: type + '_ERROR', payload: { queryString, error } })
                 })
             }
         }
