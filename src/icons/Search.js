@@ -6,6 +6,7 @@ const Search = props => (
     aria-hidden="true"
     data-prefix="fas"
     data-icon="search"
+    data-test="Search"
     className="search-solid_svg__svg-inline--fa search-solid_svg__fa-search search-solid_svg__fa-w-16"
     viewBox="0 0 512 512"
     {...props}
@@ -17,13 +18,14 @@ const Search = props => (
   </svg>
 );
 
-
-Search.defaultProps = {
+export const defaultProps = {
   fill: "currentColor"
 }
 
+Search.defaultProps = defaultProps
+
 Search.prototype = {
-  fill: PropTypes.string,
+  fill: PropTypes.string.isRequired,
 }
 
 export default Search;

@@ -1,14 +1,20 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import SearchForm from '../../components/forms/SearchForm'
 import { Link } from '../../components/uikit'
+import { fetchSearch } from '../../actions/home'
 
-class Main extends Component {
+class Main extends PureComponent {
+
+  handleFetchSearch = (queryString) => {
+    this.props.fetchSearch({queryString})
+  }
   render() {
-    const { list } = this.props
     return (
       <div>
-        <SearchForm />
+        <SearchForm
+          handleFetchSearch={this.handleFetchSearch} />
       </div>
     )
   }
@@ -16,11 +22,18 @@ class Main extends Component {
 
 
 const mapStateToProps = state => {
-    const { home } = state
-    return { 
-        router: state.router
-    }
+  return { 
+    router: state.router
+  }
 }
 
-export default connect(mapStateToProps)(Main)
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      fetchSearch
+    },
+    dispatch
+  )
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main)
 

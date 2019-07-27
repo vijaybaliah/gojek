@@ -1,23 +1,42 @@
 const home = ( state = {
     isLoading: true,
     isFetching: false,
-    error: null,
-    data: []
+    list: {},
+    queryString: ''
 }, { type, payload = {} }) => {
     switch (type) {
-        case 'FETCH_SEARCH':
+        case 'FETCH_SEARCH': {
+            const { queryString } = payload
             return {
                 ...state,
                 isLoading: true,
                 isFetching: true,
-                error: null
+                list: {
+                    ...state.list,
+                    [queryString]: {
+                        ...state.list[queryString],
+                        error: null
+                    }
+                },
+                queryString
             }
+        }
         case 'FETCH_SEARCH_SUCCESS':
-        case 'FETCH_SEARCH_ERROR':
+        case 'FETCH_SEARCH_ERROR': {
+            const { queryString, ...rest } = payload
             return {
                 ...state,
-                ...payload
+                isLoading: false,
+                isFetching: false,
+                list: {
+                    ...state.list,
+                    [queryString]: {
+                        ...state.list[queryString],
+                        ...rest
+                    }
+                }
             }
+        }
         default: 
             return state
     }

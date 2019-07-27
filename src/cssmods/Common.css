@@ -1,0 +1,11 @@
+.primaryBtn {
+  border: none;
+  background-color:#0b6d0b;
+  padding: 8px 16px;
+  text-transform: uppercase;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  outline: none;
+  cursor: pointer;
+}

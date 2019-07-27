@@ -1,0 +1,17 @@
+.inputTextField {
+  min-height: 32px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #d4d4d4;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.inputTextField:focus {
+  border-bottom: 1px solid #0b6d0b;
+}
+
+.fieldError {
+  display: block;
+  color: #b70000;
+}

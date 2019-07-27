@@ -1,0 +1,8 @@
+.searchForm, .search {
+  display: flex;
+}
+
+.search {
+  justify-content: center;
+  margin: 24px;
+}
