@@ -20,7 +20,20 @@ describe('<ImageGrid /> ', () => {
     expect(ImageGridComponent.length).toBe(1)
   })
   test('No search results', () => {
-    const wrapper = setup()
+    const queryString = 'q=cat'
+    const initialState = {
+      home: {
+        isLoading: false,
+        list: {
+          [queryString]: {
+            data: [],
+            error: null
+          }
+        },
+        queryString
+      }
+    }
+    const wrapper = setup(initialState)
     const NoResultsComponent = findByTestAttr(wrapper, 'noresults')
     expect(NoResultsComponent.text()).toBe(NO_RESULTS_FOUND)
   })

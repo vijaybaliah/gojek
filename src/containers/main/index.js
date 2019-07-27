@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import SearchForm from '../../components/forms/SearchForm'
 import { fetchSearch } from '../../actions/home'
+import ImageGrid from './ImageGrid'
 
 class Main extends PureComponent {
 
@@ -14,6 +15,7 @@ class Main extends PureComponent {
       <div>
         <SearchForm
           handleFetchSearch={this.handleFetchSearch} />
+        <ImageGrid />
       </div>
     )
   }

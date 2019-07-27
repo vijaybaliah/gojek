@@ -14,7 +14,7 @@ class ImageGrid extends PureComponent {
   }
 
   renderContent = () => {
-    const { imagesData, isFetching, error, selectedImageId } = this.props
+    const { imagesData, isFetching, error, selectedImageId, isLoading } = this.props
     let content = null
     if (isFetching) {
       content = 
@@ -24,7 +24,7 @@ class ImageGrid extends PureComponent {
           loading
         </div>
     }
-    if (!isFetching && imagesData.length === 0) {
+    if (!isFetching && imagesData.length === 0 && !isLoading) {
       content = <div data-test='noresults'>
         {NO_RESULTS_FOUND}
       </div>
@@ -39,6 +39,9 @@ class ImageGrid extends PureComponent {
       const imagesList = imagesData.map(image => (
         <Images
           key={image.id}
+          id={image.id}
+          title={image.title}
+          imageData={image.images}
           handleImageClick={this.handleImageClick}
           isSelected={selectedImageId === image.id}
         />
@@ -67,13 +70,14 @@ class ImageGrid extends PureComponent {
 
 
 const mapStateToProps = state => {
-  const { home: { queryString, list, isFetching } } = state
+  const { home: { queryString, list, isFetching, isLoading } } = state
   const home = list[queryString] || {}
 
   return { 
     imagesData: home.data || [],
     error: home.error,
     isFetching,
+    isLoading,
   }
 }
 
