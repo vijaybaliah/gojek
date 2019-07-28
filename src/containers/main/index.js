@@ -15,7 +15,8 @@ class Main extends PureComponent {
       <div>
         <SearchForm
           handleFetchSearch={this.handleFetchSearch} />
-        <ImageGrid />
+        <ImageGrid
+          handleFetchSearch={this.handleFetchSearch} />
       </div>
     )
   }

@@ -28,3 +28,5 @@ export const action = (type, payload = {}) => {
     return { type, payload }
   }
 }
+
+export const range = (start = 0, final) => [...Array(final-start)].map((e,index)=>index+start)

@@ -1,10 +1,20 @@
+import { OFFSET, LIMIT } from '../utils/contants'
+
 const home = ( state = {
     isLoading: true,
     isFetching: false,
     list: {},
-    queryString: ''
+    queryString: '',
+    start: OFFSET + 1,
+    sizePerPage: LIMIT,
 }, { type, payload = {} }) => {
     switch (type) {
+        case 'UPDATE_IMAGE_CLICK':
+        case 'NAVIGATE':
+            return {
+                ...state,
+                ...payload
+            }
         case 'FETCH_SEARCH': {
             const { queryString } = payload
             return {
@@ -41,4 +51,5 @@ const home = ( state = {
             return state
     }
 }
+
 export default { home }

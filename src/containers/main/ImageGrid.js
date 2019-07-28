@@ -1,20 +1,37 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { formValueSelector } from 'redux-form'
 import SearchForm from '../../components/forms/SearchForm'
-import { fetchSearch } from '../../actions/home'
-import { NO_RESULTS_FOUND } from '../../utils/contants'
+import { updateNavigation, updateImageClick } from '../../actions/home'
+import { NO_RESULTS_FOUND, OFFSET, RATING, LANG } from '../../utils/contants'
 import Images from '../../components/main/Images'
+import Pagination from '../../components/Pagination'
+import qstring from 'query-string'
+import styles from '../../cssmods/Main.css'
 
 class ImageGrid extends PureComponent {
 
-  handleImageClick = (image) => {
-    console.log('image: ', image)
+  handleImageClick = (selectedImageId) => {
+    this.props.updateImageClick({ selectedImageId })
+  }
 
+  handleNavigation = (start, { sizePerPage }) => {
+    const queryParams = {
+      q: this.props.q,
+      limit: sizePerPage,
+      offset: (start - 1) * sizePerPage,
+      rating: RATING,
+      lang: LANG
+    }
+    
+    const queryString = qstring.stringify(queryParams)
+    this.props.handleFetchSearch(queryString)
+    this.props.updateNavigation({start, sizePerPage})
   }
 
   renderContent = () => {
-    const { imagesData, isFetching, error, selectedImageId, isLoading } = this.props
+    const { imagesData, isFetching, error, selectedImageId, isLoading, start, sizePerPage, pagination } = this.props
     let content = null
     if (isFetching) {
       content = 
@@ -47,8 +64,18 @@ class ImageGrid extends PureComponent {
         />
       ))
       content = <div
+        className={styles.imageList}
         data-test='imageList'>
-        {imagesList}
+          {imagesList}
+          <div className={styles.paginationContainer}>
+            <Pagination
+              currentPage={start}
+              totalSize={pagination.total_count}
+              sizePerPage={sizePerPage}
+              onChange={this.handleNavigation}
+              sizes={[20,50,100]}
+              showSize={window.innerWidth > 600}/>
+          </div>
       </div>
     }
     return content
@@ -70,20 +97,29 @@ class ImageGrid extends PureComponent {
 
 
 const mapStateToProps = state => {
-  const { home: { queryString, list, isFetching, isLoading } } = state
+  const { home: { list, queryString, ...rest } } = state
   const home = list[queryString] || {}
-
+  const pagination = {
+    total_count: 0,
+    count: 0,
+    offset: 0,
+  }
+  const selector = formValueSelector('searchForm', state => state.form)
   return { 
     imagesData: home.data || [],
+    pagination: home.pagination || pagination,
     error: home.error,
-    isFetching,
-    isLoading,
+    q: selector(state, 'q'),
+    queryString,
+    ...rest
   }
 }
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
+      updateNavigation,
+      updateImageClick,
     },
     dispatch
   )

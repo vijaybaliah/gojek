@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import styles from '../../cssmods/Main.css';
 
 export const imageOnClick = (props) => {
   const { id, handleImageClick } = props
@@ -10,24 +11,29 @@ const Images = (props) => {
   const { imageData, isSelected, title } = props
   return (
     <div
+      className={styles.images}
       data-test='Images'
       onClick={() => imageOnClick(props)}
     >
       {
         !isSelected && imageData && imageData.fixed_height_still.url &&
-        <img
-          data-test='imageFixedStillUrl'
-          src={imageData.fixed_height.url}
-          alt={title}
-        />
+        <div className={styles.innerImage}>
+          <img
+            data-test='imageFixedStillUrl'
+            src={imageData.fixed_height_still.url}
+            alt={title}
+          />
+        </div>
       }
       {
         isSelected && imageData && imageData.fixed_height.url &&
-        <img
-          data-test='imageSelected'
-          src={imageData.fixed_height.url}
-          alt={title}
-        />
+        <div className={styles.innerImage}>
+          <img
+            data-test='imageSelected'
+            src={imageData.fixed_height.url}
+            alt={title}
+          />
+        </div>
       }
       {
         !isSelected && imageData && !imageData.fixed_height_still.url &&

@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import { FormInput } from './FormElements'
 import { LIMIT, OFFSET, RATING, LANG } from '../../utils/contants'
 import qstring from 'query-string'
-import { fetchSearch } from '../../actions/home'
+import { updateNavigation } from '../../actions/home'
 import Search from '../../icons/Search'
 import styles from '../../cssmods/Search.css'
 import commonStyles from '../../cssmods/Common.css'
@@ -27,6 +27,7 @@ export class SearchForm extends PureComponent {
     }
     const queryString = qstring.stringify(queryParams)
     this.props.handleFetchSearch(queryString)
+    this.props.updateNavigation({start: OFFSET + 1, sizePerPage: LIMIT})
   }
 
   render() {
@@ -60,14 +61,14 @@ const mapStateToProps = (state) => {
 
 
 var Form = reduxForm({
-  form: 'search',
+  form: 'searchForm',
   getFormState: state => state.form,
 })(SearchForm)
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      fetchSearch
+      updateNavigation
     },
     dispatch
   )

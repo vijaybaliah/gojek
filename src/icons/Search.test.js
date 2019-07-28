@@ -1,5 +1,3 @@
-import React from 'react';
-import { shallow } from 'enzyme';
 import { findByTestAttr, setupTestWrapper, checkProps } from '../utils/testUtils';
 import Search, { defaultProps } from './Search';
 
