@@ -9,6 +9,7 @@ const home = ( state = {
     sizePerPage: LIMIT,
 }, { type, payload = {} }) => {
     switch (type) {
+        case 'RESET_IS_LOADING':
         case 'UPDATE_IMAGE_CLICK':
         case 'NAVIGATE':
             return {

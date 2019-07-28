@@ -4,5 +4,6 @@
 
 .search {
   justify-content: center;
-  margin: 24px;
+  padding: 16px;
+  background: var(--search-background, 'transparent');
 }

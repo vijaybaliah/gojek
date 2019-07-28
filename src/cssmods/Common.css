@@ -1,6 +1,6 @@
 .primaryBtn {
   border: none;
-  background-color:#0b6d0b;
+  background-color:var(--primary-btn, #0b6d0b);
   padding: 8px 16px;
   text-transform: uppercase;
   align-items: center;
@@ -66,9 +66,35 @@
   align-items: center;
 }
 
+.flex.center {
+  justify-content: center;
+}
+
 .showSize {
   color: #696969;
   display: none;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loaderContainer {
+  padding-top: 16px;
+}
+
+.loader {
+  clear: both;
+  border: 0.25rem solid rgba(0, 0, 0, 0.2);
+  border-top-color: var(--primary, #0b6d0b);
+  border-radius: 50%;
+  animation: spin 1s infinite linear;
 }
 
 @media (min-width: 600px) {

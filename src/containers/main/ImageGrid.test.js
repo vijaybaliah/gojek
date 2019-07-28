@@ -31,6 +31,13 @@ describe('<ImageGrid /> ', () => {
           }
         },
         queryString
+      },
+      form: {
+        searchForm: {
+          values: {
+            q: 'someRandom'
+          }
+        }
       }
     }
     const wrapper = setup(initialState)

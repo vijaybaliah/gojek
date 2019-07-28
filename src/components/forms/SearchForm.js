@@ -6,11 +6,10 @@ import { bindActionCreators } from 'redux'
 import { FormInput } from './FormElements'
 import { LIMIT, OFFSET, RATING, LANG } from '../../utils/contants'
 import qstring from 'query-string'
-import { updateNavigation } from '../../actions/home'
+import { updateNavigation, resetIsLoading } from '../../actions/home'
 import Search from '../../icons/Search'
 import styles from '../../cssmods/Search.css'
 import commonStyles from '../../cssmods/Common.css'
-import { required } from '../../utils/validations'
 
 export class SearchForm extends PureComponent {
 
@@ -30,6 +29,10 @@ export class SearchForm extends PureComponent {
     this.props.updateNavigation({start: OFFSET + 1, sizePerPage: LIMIT})
   }
 
+  handleResetLoading = () => {
+    this.props.resetIsLoading({isLoading: true})
+  }
+
   render() {
     const {  handleSubmit } = this.props
 
@@ -37,6 +40,7 @@ export class SearchForm extends PureComponent {
       <div className={styles.search} data-test='SearchForm'>
         <form id='search' onSubmit={handleSubmit(this.onSubmit)} className={styles.searchForm}>
           <Field
+            onClick={this.handleResetLoading}
             name='q'
             placeholder='Search your gif here'
             component={FormInput} />
@@ -68,7 +72,8 @@ var Form = reduxForm({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      updateNavigation
+      updateNavigation,
+      resetIsLoading
     },
     dispatch
   )

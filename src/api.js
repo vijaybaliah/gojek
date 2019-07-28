@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { getCookie } from './utils/helpers'
 import { API_KEY } from './utils/contants'
 
 export const fetch = (url, method = 'get', payload = {}) => {
@@ -20,18 +19,6 @@ export const fetch = (url, method = 'get', payload = {}) => {
             },
             responseType: 'json',
             url
-        }
-
-        if (getCookie('authToken') !== '') {
-            const token = getCookie('authToken')
-
-            requestObject = {
-                ...requestObject,
-                headers: {
-                    ...requestObject.headers,
-                    Authorization: `Token ${token}`
-                }
-            }
         }
 
         if (Object.keys(data).length) {

@@ -36,7 +36,40 @@
 }
 
 body {
-  background-image: url(/grid.svg);
+  background-image: var(--background-image, url(/grid.svg));
+}
+
+.themeContainer {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+
+.theme {
+  display: flex;
+}
+
+.themeText {
+  font-size: 8px;
+  text-align: right;
+  margin-top: 0px;
+  padding-right: 8px;
+  color: var(--theme-text, '#686f7a');
+}
+
+.themeOptions {
+  width: 16px;
+  height: 16px;
+  margin: 8px;
+  cursor: pointer;
+}
+
+.isFetching {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 400px;
 }
 
 @media (min-width: 600px) {
@@ -45,5 +78,8 @@ body {
   }
   .images {
     width: 20%;
+  }
+  .themeContainer {
+    right: 8px;
   }
 }

@@ -2,13 +2,14 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { formValueSelector } from 'redux-form'
-import SearchForm from '../../components/forms/SearchForm'
 import { updateNavigation, updateImageClick } from '../../actions/home'
-import { NO_RESULTS_FOUND, OFFSET, RATING, LANG } from '../../utils/contants'
+import { NO_RESULTS_FOUND, RATING, LANG } from '../../utils/contants'
 import Images from '../../components/main/Images'
 import Pagination from '../../components/Pagination'
+import Spinner from '../../components/Spinner'
 import qstring from 'query-string'
 import styles from '../../cssmods/Main.css'
+import { isEmpty } from '../../utils/validations'
 
 class ImageGrid extends PureComponent {
 
@@ -31,17 +32,18 @@ class ImageGrid extends PureComponent {
   }
 
   renderContent = () => {
-    const { imagesData, isFetching, error, selectedImageId, isLoading, start, sizePerPage, pagination } = this.props
+    const { imagesData, isFetching, error, selectedImageId, isLoading, start, sizePerPage, pagination, q, queryString } = this.props
     let content = null
     if (isFetching) {
       content = 
         <div
           data-test='loader'
+          className={styles.isFetching}
         >
-          loading
+          <Spinner />
         </div>
     }
-    if (!isFetching && imagesData.length === 0 && !isLoading) {
+    if (imagesData.length === 0 && !isLoading && !isEmpty(q) &&queryString.includes('q')) {
       content = <div data-test='noresults'>
         {NO_RESULTS_FOUND}
       </div>

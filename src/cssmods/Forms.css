@@ -7,10 +7,17 @@
   box-sizing: border-box;
   padding-left: 8px;
   font-size: 16px;
+  color: var(--search-placeholder, #686f7a);
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
 }
 
 .inputTextField:focus {
-  border-bottom: 1px solid #0b6d0b;
+  border-bottom: 1px solid var(--border-bottom-focus, #0b6d0b);
+}
+
+.inputTextField::placeholder {
+  color: var(--search-placeholder, #686f7a);
 }
 
 .fieldError {
